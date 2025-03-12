@@ -1,0 +1,28 @@
+name: Laravel Code Linting (Windows)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: fileinfo, xdebug
+
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist
+
+      - name: Check PHP Installation
+        run: where.exe php
